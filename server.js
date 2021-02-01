@@ -1,7 +1,6 @@
 const express = require('express');
 const ejs = require('ejs');
 const axios = require('axios');
-const { response } = require('express');
 const app = express();
 
 app.set('view engine', ejs);
@@ -16,14 +15,6 @@ app.get('/', (req, res)=> {
     res.render('index.ejs', {imageSrc: defaultImageUrl});
 });
 
-app.get('/', (req, res)=> {
-    let defaultImageUrl = {
-        url: "https://cdn2.thecatapi.com/images/5nr.jpg"
-
-    };
-
-    res.render("index.ejs", {imageSrc: defaultImageUrl});
-});
 
 app.post('/get-dog', (req,res)=> {
     const url = "https://dog.ceo/api/breeds/image/random"
@@ -39,19 +30,7 @@ app.post('/get-dog', (req,res)=> {
     })
 });
 
-app.post("/get-cat", (req,res)=>{
-    const url = "https://api.thecatapi.com/v1/images/search"
 
-    axios.get(url)
-    .then(response =>{
-        let randomImageUrl = {
-            url: response.data.message
-        };
-
-        console.log(randomImageUrl);
-        res.render("index.ejs", {imageSrc: randomImageUrl});
-    })
-});
 
 app.listen(3000, ()=> {
     console.log('Server is running on port 3000');
